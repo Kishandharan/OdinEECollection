@@ -11,7 +11,7 @@ Mem :: struct{
   mem: [4][4]bool
 };
 ```
-Data type which you will use to create a 74xx670 emulated instance.
+Data type of an emulated 74xx670 instance.
 ### Tristate :: enum
 ```
 Tristate :: enum{
