@@ -31,8 +31,8 @@ This method initializes a `Mem` struct with the appropriate initial values and r
 | Data Input | Input | 0, 0, 0, 0 | 
 | Write Address | Input | 0, 0 |
 | Read Address | Input | 0, 0 | 
-| Output (__This is tristate__) | Output | .FL, .FL, .FL, .FL |
-| Write Enable (__active low__) | Input | 1 | 
-| Read Enable (__active low__) | Input | 1 |
+| Output (__Tristate__) | Output | .FL, .FL, .FL, .FL |
+| Write Enable (__Active low__) | Input | 1 | 
+| Read Enable (__Active low__) | Input | 1 |
 | Memory | Internal Memory Grid | 0 (__In all memory cells__) |
 
