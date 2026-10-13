@@ -36,20 +36,20 @@ This procedure initializes a `ic74670` struct with the appropriate initial value
 | Read Enable (__Active low__) | Input | 1 |
 | Memory | Internal Memory Grid | 0 (__In all memory cells__) |
 
-### setNWE(mem: ^ic74670, bit: bool)
+### `setNWE(mem: ^ic74670, bit: bool)`
 This procedure allows changing the Write Enable signal. It takes a pointer to an `ic74670` struct instance and a boolean value to which the Write Enable signal has to be changed to. It doesn't return anything.
 
-### setNRE(mem: ^ic74670, bit: bool)
+### `setNRE(mem: ^ic74670, bit: bool)`
 This procedure allows changing the Read Enable signal. It takes a pointer to an `ic74670` struct instance and a boolean value to which the Read Enable signal has to be changed to. It doesn't return anything.
 
-### setWRADDR(mem: ^ic74670, bit1: bool, bit2: bool)
+### `setWRADDR(mem: ^ic74670, bit1: bool, bit2: bool)`
 This procedure allows changing the Write Address bits. It takes a pointer to an `ic74670` struct instance and two boolean values representing the first and second bits of the Write Address respectively (reading from left to right). It doesn't return anything.
 
-### setREADDR(mem: ^ic74670, bit1: bool, bit2: bool)
+### `setREADDR(mem: ^ic74670, bit1: bool, bit2: bool)`
 This procedure allows changing the Read Address bits. It takes a pointer to an `ic74670` struct instance and two boolean values representing the first and second bits of the Read Address respectively (reading from left to right). It doesn't return anything.
 
-### setINP(mem: ^ic74670, bit1: bool, bit2: bool, bit3: bool, bit4: bool)
+### `setINP(mem: ^ic74670, bit1: bool, bit2: bool, bit3: bool, bit4: bool)`
 This procedure changes the Write Data Input bits. It takes a pointer to an `ic74670` struct instance and 4 boolean values for the 4 bits of the input. It doesn't return anything.
 
-### getOUT(mem: ^ic74670) 
+### `getOUT(mem: ^ic74670)`
 This procedure returns the 4 Tristate outputs of the emulated chip. It takes a pointer to an `ic74670` struct instance. Its return type is `[4]Tristate`.
