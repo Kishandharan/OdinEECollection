@@ -1,7 +1,7 @@
 package regfile
 import fmt "core:fmt"
 
-Mem :: struct{
+ic74670 :: struct{
   inp: [4]bool,
   wraddr: [2]bool, 
   readdr: [2]bool,
@@ -26,8 +26,8 @@ btoi :: proc(bit1 : bool, bit2 : bool) -> int{
   return val;
 }
 
-memInit :: proc() -> Mem{
-  mem : Mem;
+memInit :: proc() -> ic74670{
+  mem : ic74670;
   mem.inp = {false,false,false,false};
   mem.wraddr = {false,false};
   mem.readdr = {false,false};
@@ -42,7 +42,7 @@ memInit :: proc() -> Mem{
   return mem;
 }
 
-setNWE :: proc(mem: ^Mem, bit: bool){
+setNWE :: proc(mem: ^ic74670, bit: bool){
   mem.nwe = bit;
   if bit == true{ return; }
   wraddr_bit1 : bool =  mem.wraddr[0];
@@ -71,7 +71,7 @@ setNWE :: proc(mem: ^Mem, bit: bool){
   }
 }
 
-setNRE :: proc(mem: ^Mem, bit: bool){
+setNRE :: proc(mem: ^ic74670, bit: bool){
   mem.nre = bit;
 
   if bit == true{ 
@@ -92,7 +92,7 @@ setNRE :: proc(mem: ^Mem, bit: bool){
   }
 }
 
-setWRADDR :: proc(mem: ^Mem, bit1: bool, bit2: bool){
+setWRADDR :: proc(mem: ^ic74670, bit1: bool, bit2: bool){
   mem.wraddr[0] = bit1;
   mem.wraddr[1] = bit2;
 
@@ -113,7 +113,7 @@ setWRADDR :: proc(mem: ^Mem, bit1: bool, bit2: bool){
   }
 }
 
-setREADDR :: proc(mem: ^Mem, bit1: bool, bit2: bool){
+setREADDR :: proc(mem: ^ic74670, bit1: bool, bit2: bool){
   mem.readdr[0] = bit1;
   mem.readdr[1] = bit2;
 
@@ -124,7 +124,7 @@ setREADDR :: proc(mem: ^Mem, bit1: bool, bit2: bool){
   }
 }
 
-setINP :: proc(mem: ^Mem, bit1: bool, bit2: bool, bit3: bool, bit4: bool){
+setINP :: proc(mem: ^ic74670, bit1: bool, bit2: bool, bit3: bool, bit4: bool){
   mem.inp[0] = bit1;
   mem.inp[1] = bit2;
   mem.inp[2] = bit3;
@@ -155,6 +155,6 @@ setINP :: proc(mem: ^Mem, bit1: bool, bit2: bool, bit3: bool, bit4: bool){
   mem.out[3] = .ON if bit4 == true else .OFF;
 }
 
-getOUT :: proc(mem: ^Mem) -> [4]Tristate{
+getOUT :: proc(mem: ^ic74670) -> [4]Tristate{
   return mem.out;
 }
