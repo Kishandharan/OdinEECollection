@@ -28,3 +28,31 @@ init :: proc() -> ic74595{
 
   return shift1;
 }
+
+setSER :: proc(reg: ^ic74595, bit: bool){
+  reg.ser = bit;
+}
+
+setSRCLR :: proc(reg: ^ic74595, bit: bool){
+  reg.srclr = bit;
+  if !bit{
+    for i in 0..<8{
+      reg.shiftregister[i] = false;
+    }
+  }
+}
+
+setSRCLK :: proc(reg: ^ic74595, bit: bool){
+  prevSRCLK := reg.srclk;
+  reg.srclk = bit;
+
+  if !prevSRCLK && bit{
+    if reg.srclr{
+      // Shift logic
+      for i := 7; i >= 1; i-=1 {
+        reg.shiftregister[i] = reg.shiftregister[i-1];
+      }
+      reg.shiftregister[0] = reg.ser;
+    } 
+  }
+}
