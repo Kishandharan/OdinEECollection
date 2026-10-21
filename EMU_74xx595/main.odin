@@ -56,3 +56,17 @@ setSRCLK :: proc(reg: ^ic74595, bit: bool) {
 		}
 	}
 }
+
+setRCLK :: proc(reg: ^ic74595, bit: bool) {
+	if reg.rclk == false && bit == true {
+		for i in 0 ..< 8 {
+			reg.outbuffer[i] = reg.shiftregister[i]
+		}
+
+		if reg.oe == false {
+			for i in 0 ..< 8 {
+				reg.outfinal[i] = 1 if reg.outbuffer[i] == true else 0
+			}
+		}
+	}
+}
