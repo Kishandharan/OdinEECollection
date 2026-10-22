@@ -3,6 +3,7 @@ package shiftregister
 ic74595 :: struct {
 	outfinal:      [8]int,
 	outbuffer:     [8]bool,
+	outprime:      bool,
 	shiftregister: [8]bool,
 	ser:           bool,
 	srclr:         bool,
@@ -26,6 +27,8 @@ init :: proc() -> ic74595 {
 		shift1.outbuffer = false
 	}
 
+	shift1.outprime = false
+
 	return shift1
 }
 
@@ -39,6 +42,7 @@ setSRCLR :: proc(reg: ^ic74595, bit: bool) {
 		for i in 0 ..< 8 {
 			reg.shiftregister[i] = false
 		}
+		reg.outprime = false
 	}
 }
 
@@ -49,6 +53,7 @@ setSRCLK :: proc(reg: ^ic74595, bit: bool) {
 	if !prevSRCLK && bit {
 		if reg.srclr {
 			// Shift logic
+			reg.outprime = reg.shiftregister[7]
 			for i := 7; i >= 1; i -= 1 {
 				reg.shiftregister[i] = reg.shiftregister[i - 1]
 			}
