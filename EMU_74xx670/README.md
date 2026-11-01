@@ -26,11 +26,23 @@ Data type for representing Tristate logic.
 ## Methods
 | Method | Signature | Functionality
 |---|---|---|
-| `memInit` | `memInit() -> ic74670` | Initializes an ic74670 struct instance with appropriate values and returns it |
+| `memInit` | `memInit() -> ic74670` | Initializes an ic74670 struct instance with appropriate values and returns it. See section below for more details. |
 | `setNWE` | `setNWE(mem: ^ic74670, bit: bool)` | Changes the Write Enable Signal. |
 | `setNRE` | `setNRE(mem: ^ic74670, bit: bool)` | Changes the Read Enable Signal | 
 | `setWRADDR` | `setWRADDR(mem: ^ic74670, bit1: bool, bit2: bool)` | Changes the Write Address bits |
 | `setREADDR` | `setREADDR(mem: ^ic74670, bit1: bool, bit2: bool)` | Changes the Read Address bits |
 | `setINP` | `setINP(mem: ^ic74670, bit1: bool, bit2: bool, bit3: bool, bit4: bool)` | Changes the data input bits |
 | `getOUT` | `getOUT(mem: ^ic74670) -> [4]Tristate` | Returns the four tristate outputs |
+
+### Initial values for memInit
+| Struct Field Name | Friendly Name | Initial Value(s) |
+|---|---|---|
+| inp | Data Input | Zeroed out |
+| wraddr | Write Addres bits | Zeroed out |
+| readdr | Read Addres bits | Zeroed out |
+| nwe | Write Enable (active low) | HIGH |
+| nre | Read Enable (active low) | HIGH | 
+| mem | Internal memory storage | Zeroed out |
+| out | Tristate data outputs | All of them floating |
+
 
