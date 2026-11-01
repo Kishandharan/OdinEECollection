@@ -4,16 +4,10 @@ ic74670 :: struct {
 	inp:    [4]bool,
 	wraddr: [2]bool,
 	readdr: [2]bool,
-	out:    [4]Tristate,
+	out:    [4]int,
 	nwe:    bool,
 	nre:    bool,
 	mem:    [4][4]bool,
-}
-
-Tristate :: enum {
-	ON,
-	OFF,
-	FL,
 }
 
 btoi :: proc(bit1: bool, bit2: bool) -> int {
@@ -30,7 +24,7 @@ memInit :: proc() -> ic74670 {
 	mem.inp = {false, false, false, false}
 	mem.wraddr = {false, false}
 	mem.readdr = {false, false}
-	mem.out = {.FL, .FL, .FL, .FL}
+	mem.out = {-1, -1, -1, -1}
 	mem.nwe = true
 	mem.nre = true
 	for i in 0 ..< 4 {
@@ -62,10 +56,10 @@ setNWE :: proc(mem: ^ic74670, bit: bool) {
 	for i in 0 ..< 4 {
 
 		if mem.mem[matrix_index2][i] {
-			mem.out[i] = .ON
+			mem.out[i] = 1
 			continue
 		}
-		mem.out[i] = .OFF
+		mem.out[i] = 0
 
 	}
 }
@@ -74,7 +68,7 @@ setNRE :: proc(mem: ^ic74670, bit: bool) {
 	mem.nre = bit
 
 	if bit == true {
-		for i in 0 ..< 4 {mem.out[i] = .FL}
+		for i in 0 ..< 4 {mem.out[i] = -1}
 		return
 	}
 
@@ -84,10 +78,10 @@ setNRE :: proc(mem: ^ic74670, bit: bool) {
 
 	for i in 0 ..< 4 {
 		if mem.mem[matrix_index][i] == false {
-			mem.out[i] = .OFF
+			mem.out[i] = 0
 			continue
 		}
-		mem.out[i] = .ON
+		mem.out[i] = 1
 	}
 }
 
@@ -108,7 +102,7 @@ setWRADDR :: proc(mem: ^ic74670, bit1: bool, bit2: bool) {
 
 	if matrix_index1 != matrix_index2 {return}
 	for i in 0 ..< 4 {
-		mem.out[i] = .ON if mem.inp[i] == true else .OFF
+		mem.out[i] = 1 if mem.inp[i] == true else 0
 	}
 }
 
@@ -119,7 +113,7 @@ setREADDR :: proc(mem: ^ic74670, bit1: bool, bit2: bool) {
 	if mem.nre == true {return}
 	matrix_index := btoi(bit1, bit2)
 	for i in 0 ..< 4 {
-		mem.out[i] = .ON if mem.mem[matrix_index][i] == true else .OFF
+		mem.out[i] = 1 if mem.mem[matrix_index][i] == true else 0
 	}
 }
 
@@ -148,12 +142,12 @@ setINP :: proc(mem: ^ic74670, bit1: bool, bit2: bool, bit3: bool, bit4: bool) {
 
 	if matrix_index1 != matrix_index2 {return}
 
-	mem.out[0] = .ON if bit1 == true else .OFF
-	mem.out[1] = .ON if bit2 == true else .OFF
-	mem.out[2] = .ON if bit3 == true else .OFF
-	mem.out[3] = .ON if bit4 == true else .OFF
+	mem.out[0] = 1 if bit1 == true else 0
+	mem.out[1] = 1 if bit2 == true else 0
+	mem.out[2] = 1 if bit3 == true else 0
+	mem.out[3] = 1 if bit4 == true else 0
 }
 
-getOUT :: proc(mem: ^ic74670) -> [4]Tristate {
+getOUT :: proc(mem: ^ic74670) -> [4]int {
 	return mem.out
 }
