@@ -12,16 +12,7 @@ ic74670 :: struct{
 };
 ```
 Data type of an emulated 74xx670 instance.
-
-### Tristate :: enum
-``` 
-Tristate :: enum {
-	ON,
-	OFF,
-	FL,
-}
-```
-Data type for representing Tristate logic.
+**Note: Tristate logic is represented with int (0 = Logic LOW, 1 = Logic HIGH, -1 = Floating)**
 
 ## Methods
 | Method | Signature | Functionality
@@ -32,7 +23,7 @@ Data type for representing Tristate logic.
 | `setWRADDR` | `setWRADDR(mem: ^ic74670, bit1: bool, bit2: bool)` | Changes the Write Address bits |
 | `setREADDR` | `setREADDR(mem: ^ic74670, bit1: bool, bit2: bool)` | Changes the Read Address bits |
 | `setINP` | `setINP(mem: ^ic74670, bit1: bool, bit2: bool, bit3: bool, bit4: bool)` | Changes the data input bits |
-| `getOUT` | `getOUT(mem: ^ic74670) -> [4]Tristate` | Returns the four tristate outputs |
+| `getOUT` | `getOUT(mem: ^ic74670) -> [4]int` | Returns the four tristate outputs |
 
 ### Initial values for memInit
 | Struct Field Name | Friendly Name | Initial Value(s) |
@@ -43,6 +34,6 @@ Data type for representing Tristate logic.
 | nwe | Write Enable (active low) | HIGH |
 | nre | Read Enable (active low) | HIGH | 
 | mem | Internal memory storage | Zeroed out |
-| out | Tristate data outputs | All of them floating |
+| out | Tristate data outputs | All of them floating(-1) |
 
 
