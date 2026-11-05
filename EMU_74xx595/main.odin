@@ -90,3 +90,11 @@ setOE :: proc(reg: ^ic74595, bit: bool) {
 		}
 	}
 }
+
+getOUT :: proc(reg: ^ic74595) -> [8]int {
+	return reg.outfinal
+}
+
+getOUTPRIME :: proc(reg: ^ic74595) -> bool {
+	return reg.outprime
+}
